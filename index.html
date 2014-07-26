@@ -1,0 +1,47 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>
+            Hai world
+        </h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores odit incidunt beatae mollitia maiores, error neque rem, ipsa tenetur sequi.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt veritatis dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem quas magni laudantium, fugiat laboriosam autem veniam amet maiores modi distinctio?
+        </p>
+        <button onclick='test()'>
+            Test
+        </button>
+    </body>
+    <script>
+        function test() {
+            // Iterate over the document's text nodes
+            // https://developer.mozilla.org/en-US/docs/Web/API/document.createTreeWalker
+            var allText = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_ELEMENT,
+                { 
+                    acceptNode: function(node) 
+                    { 
+                        return NodeFilter.FILTER_ACCEPT; 
+                    } 
+                },
+                false
+            );
+            var nodeList = [];
+            while(allText.nextNode()) {
+                nodeList.push(allText.currentNode);
+            }
+            for (var i = 0; i < nodeList.length; i++) {
+                innerText = nodeList[i].innerText;
+                innerText = innerText.replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
+                nodeList[i].innerHTML = innerText;
+            }
+        }
+    </script>
+</html>
