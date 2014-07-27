@@ -8,10 +8,10 @@
             </h1>
             <div>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores odit incidunt beatae mollitia maiores, error neque rem, ipsa tenetur sequi.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. <em>Asperiores</em> odit incidunt beatae mollitia maiores, error neque rem, ipsa tenetur sequi.
                 </p>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt veritatis dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt <a href="test.com">veritatis</a> dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
                 </p>
             </div>
             <p>
@@ -26,21 +26,40 @@
     </body>
     <script>
         function bro() {
+            function bro(element) {
+                element.innerHTML = element.innerHTML.trim().replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
+            }
+            function isValid(element) {
+                return (element.tagName == "H1" || element.tagName == "H2" || element.tagName == "H3" || element.tagName == "H4" || element.tagName == "P" || element.tagName == "LI" || element.tagName == "BUTTON") && /\S/.test(element.innerHTML);
+            }
             function recurseDOM(element) {
+                element.editedChildren = [];
                 if (element.childNodes.length > 1) {
                     for (var i = 0; i < element.childNodes.length; i++) {
                         if (element.childNodes[i].nodeType == 1) {
-                            recurseDOM(element.childNodes[i]);
+                            if (recurseDOM(element.childNodes[i])) {
+                                element.editedChildren.push(element.childNodes[i]);
+                            } // recurse over every child node; if a single one returns true, noChildrenEdited is false
                         }
                     }
+                    if (element.editedChildren.length == 0 && isValid(element)) {
+                        bro(element);
+                        return true;
+                    }
                 } else {
-                    if (element.childNodes[0].nodeType == 3 && element.tagName != "SCRIPT" && element.tagName != "HEAD" && /\S/.test(element.innerText)) {
-                        // console.log(element);
-                        element.innerText = element.innerText.replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
+                    if (isValid(element)) {
+                        // console.log("edited: " + element.innerHTML);
+                        bro(element);
+                        return true;
+                    } else {
+                        // console.log("NOT edited: " + element.innerHTML);
+                        return false;
                     }
                 }
+                // depth++;
+                // console.log(depth);
             }
-            var dom = document.getElementsByTagName('html')[0];
+            var dom = document.getElementsByTagName('body')[0];
             recurseDOM(dom);
         }
     </script>
