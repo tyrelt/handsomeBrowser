@@ -1,26 +1,20 @@
-function test() {
-    // Iterate over the document's text nodes
-    // https://developer.mozilla.org/en-US/docs/Web/API/document.createTreeWalker
-    var allText = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_ELEMENT,
-        { 
-            acceptNode: function(node) 
-            { 
-                return NodeFilter.FILTER_ACCEPT; 
-            } 
-        },
-        false
-    );
-    var nodeList = [];
-    while(allText.nextNode()) {
-        nodeList.push(allText.currentNode);
+function bro() {
+    function recurseDOM(element) {
+        if (element.childNodes.length > 1) {
+            for (var i = 0; i < element.childNodes.length; i++) {
+                if (element.childNodes[i].nodeType == 1) {
+                    recurseDOM(element.childNodes[i]);
+                }
+            }
+        } else {
+            if ((element.tagName == "H1" || element.tagName == "H2" || element.tagName == "H3" || element.tagName == "H4" || element.tagName == "P" || element.tagName == "LI" || element.tagName == "BUTTON") && /\S/.test(element.innerText)) {
+                console.log(element.tagName);
+                console.log(element);
+                element.innerText = element.innerText.replace(/(.*?)([^\w]("|&ldquo;|&quot;)?)?$/, '$1' + ', bro' + '$2');
+            }
+        }
     }
-    // nodeList = document.getElementsByTag('span');
-    for (var i = 0; i < nodeList.length; i++) {
-        innerText = nodeList[i].innerText;
-        innerText = innerText.replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
-        nodeList[i].innerHTML = innerText;
-    }
+    var dom = document.getElementsByTagName('html')[0];
+    recurseDOM(dom);
 }
-test();
+bro();

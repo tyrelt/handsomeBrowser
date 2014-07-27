@@ -2,46 +2,46 @@
     <head>
     </head>
     <body>
-        <h1>
-            Hai world
-        </h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores odit incidunt beatae mollitia maiores, error neque rem, ipsa tenetur sequi.
-        </p>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt veritatis dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
-        </p>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem quas magni laudantium, fugiat laboriosam autem veniam amet maiores modi distinctio?
-        </p>
-        <button onclick='test()'>
-            Test
-        </button>
+        <div>
+            <h1>
+                Hai world
+            </h1>
+            <div>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores odit incidunt beatae mollitia maiores, error neque rem, ipsa tenetur sequi.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt veritatis dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
+                </p>
+            </div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem quas magni laudantium, fugiat laboriosam autem veniam amet maiores modi distinctio?
+            </p>
+            <p>
+            </p>
+            <button onclick='bro()'>
+                Test
+            </button>
+        </div>
     </body>
     <script>
-        function test() {
-            // Iterate over the document's text nodes
-            // https://developer.mozilla.org/en-US/docs/Web/API/document.createTreeWalker
-            var allText = document.createTreeWalker(
-                document.body,
-                NodeFilter.SHOW_ELEMENT,
-                { 
-                    acceptNode: function(node) 
-                    { 
-                        return NodeFilter.FILTER_ACCEPT; 
-                    } 
-                },
-                false
-            );
-            var nodeList = [];
-            while(allText.nextNode()) {
-                nodeList.push(allText.currentNode);
+        function bro() {
+            function recurseDOM(element) {
+                if (element.childNodes.length > 1) {
+                    for (var i = 0; i < element.childNodes.length; i++) {
+                        if (element.childNodes[i].nodeType == 1) {
+                            recurseDOM(element.childNodes[i]);
+                        }
+                    }
+                } else {
+                    if (element.childNodes[0].nodeType == 3 && element.tagName != "SCRIPT" && element.tagName != "HEAD" && /\S/.test(element.innerText)) {
+                        // console.log(element);
+                        element.innerText = element.innerText.replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
+                    }
+                }
             }
-            for (var i = 0; i < nodeList.length; i++) {
-                innerText = nodeList[i].innerText;
-                innerText = innerText.replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
-                nodeList[i].innerHTML = innerText;
-            }
+            var dom = document.getElementsByTagName('html')[0];
+            recurseDOM(dom);
         }
     </script>
 </html>
