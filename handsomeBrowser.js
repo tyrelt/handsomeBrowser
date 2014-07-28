@@ -1,11 +1,11 @@
 function bro(element) {
     broRegex = new RegExp(
-            '(.+?)' + // $1, mandatory: the string body (lazy, 1+)
+            '(.+?(?!</))' + // $1, mandatory: the string body (lazy, 1+)
             '(,$)?' + // $2, optional: a comma at the end of the string, to be discarded
             '(' + // $3, optional:
                 '(\\.|\\!|\\?|:)?' + // end punctuation...
                 '("|&ldquo;|&quot;|”)?' + // closing quotation marks...
-                '(</.*?>)*' + // closing tags...
+                '((</.*?>)*)' + // closing tags...
             ')?$' // ...all at the end of the string
         );
     element.innerHTML = element.innerHTML.trim().replace(broRegex, '$1' + ', bro' + '$3');
