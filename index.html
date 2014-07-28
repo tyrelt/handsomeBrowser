@@ -8,59 +8,33 @@
             </h1>
             <div>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. <em>Asperiores</em> odit incidunt beatae mollitia maiores, error neque rem, ipsa tenetur sequi.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. <em>Asperiores</em> odit incidunt beatae mollitia maiores, error neque rem, <a href="test.co,">ipsa t<span>enetu</span>r sequi</a>.
                 </p>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt <a href="test.com">veritatis</a> dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod nulla quam deserunt <a href="test.com">ve<span>ri</span>tatis</a> dignissimos quibusdam quo recusandae, aut aperiam. Nobis!
                 </p>
             </div>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem quas magni laudantium, fugiat laboriosam autem veniam amet maiores modi distinctio?
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem quas magni laudantium, fugiat laboriosam autem veniam amet maiores modi <strong>distinctio?</strong>
             </p>
             <p>
             </p>
-            <button onclick='bro()'>
-                Test
+            <ul>
+                <li>
+                    One,
+                </li>
+                <li>
+                    Two,
+                </li>
+                <li rel="Nibali wins the Tour de France" title="Report"><a href="/tour-de-france/stage-21/results">Stage 21 - Report</a></li>
+                <li><a href="/tour-de-france/map"><em>Map</em></a></li>
+                <li class="corerace tdf"><a href="/tour-de-france"><span></span>Tour de France</a></li>
+            </ul>
+            <button>
+                This button does nothing
             </button>
         </div>
     </body>
-    <script>
-        function bro() {
-            function bro(element) {
-                element.innerHTML = element.innerHTML.trim().replace(/(.*?)([^\w])?$/, '$1' + ', bro' + '$2');
-            }
-            function isValid(element) {
-                return (element.tagName == "H1" || element.tagName == "H2" || element.tagName == "H3" || element.tagName == "H4" || element.tagName == "P" || element.tagName == "LI" || element.tagName == "BUTTON") && /\S/.test(element.innerHTML);
-            }
-            function recurseDOM(element) {
-                element.editedChildren = [];
-                if (element.childNodes.length > 1) {
-                    for (var i = 0; i < element.childNodes.length; i++) {
-                        if (element.childNodes[i].nodeType == 1) {
-                            if (recurseDOM(element.childNodes[i])) {
-                                element.editedChildren.push(element.childNodes[i]);
-                            } // recurse over every child node; if a single one returns true, noChildrenEdited is false
-                        }
-                    }
-                    if (element.editedChildren.length == 0 && isValid(element)) {
-                        bro(element);
-                        return true;
-                    }
-                } else {
-                    if (isValid(element)) {
-                        // console.log("edited: " + element.innerHTML);
-                        bro(element);
-                        return true;
-                    } else {
-                        // console.log("NOT edited: " + element.innerHTML);
-                        return false;
-                    }
-                }
-                // depth++;
-                // console.log(depth);
-            }
-            var dom = document.getElementsByTagName('body')[0];
-            recurseDOM(dom);
-        }
+    <script src="handsomeBrowser.js">
     </script>
 </html>
