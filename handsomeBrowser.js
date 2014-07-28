@@ -1,14 +1,15 @@
 function bro(element) {
-    broRegex = new RegExp(
-            '(.+?(?!</))' + // $1, mandatory: the string body (lazy, 1+)
-            '(,$)?' + // $2, optional: a comma at the end of the string, to be discarded
-            '(' + // $3, optional:
-                '(\\.|\\!|\\?|:)?' + // end punctuation...
-                '("|&ldquo;|&quot;|”)?' + // closing quotation marks...
-                '((</.*?>)*)' + // closing tags...
-            ')?$' // ...all at the end of the string
-        );
-    element.innerHTML = element.innerHTML.trim().replace(broRegex, '$1' + ', bro' + '$3');
+    // broRegex = new RegExp(
+    //         '(.+(?!</))' + // $1, mandatory: the string body, lazy
+    //         '(,$)?' + // $2, optional: a comma at the end of the string, to be discarded
+    //         '(' + // $3, optional:
+    //             '(\\.|\\!|\\?|:' + // end punctuation...
+    //             '|"|&ldquo;|&quot;|”' + // closing quotation marks...
+    //             '|</.*?>)*' + // closing tags...
+    //         ')$' // ...all at the end of the string
+    //     );
+    // element.innerHTML = element.innerHTML.trim().replace(broRegex, '$1' + ', bro' + '$3');
+    element.innerHTML = element.innerHTML.trim().replace(/((<[^>]*>|\.|,|\!|\?)*)$/, ', bro' + '$1');
 }
 function isValid(element) {
     return (element.tagName == "H1" || element.tagName == "H2" || element.tagName == "H3" || element.tagName == "H4" || element.tagName == "P" || element.tagName == "LI" || element.tagName == "BUTTON") && /\S/.test(element.innerText); // innerText, not innerHTML, to exclude things like images
