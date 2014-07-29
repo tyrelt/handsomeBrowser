@@ -1,5 +1,9 @@
 function bro(element) {
-    element.innerHTML = element.innerHTML.trim().replace(/((<[^>]*>|\.|,|\!|\?|:|"|&ldquo;|&quot;|”)*)$/, ', bro' + '$1');
+    element.innerHTML = element.innerHTML.trim()
+        .replace(/(>)\s{2,}/g, '$1')
+        .replace(/\s{2,}(<)/g, '$1')
+        .replace(/((<[^>]*>|\.|,|\!|\?|:|"|&ldquo;|&quot;|”)*)$/, ', bro' + '$1');
+    console.log(element.innerHTML);
 }
 
 function isValid(element) {
