@@ -1,8 +1,8 @@
 function bro(element) {
     element.innerHTML = element.innerHTML.trim()
-        .replace(/(>)\s{2,}/g, '$1')
-        .replace(/\s{2,}(<)/g, '$1')
-        .replace(/((<[^>]*>|\.|,|\!|\?|:|"|\'|\&[^;\s]*;|\s?(\.\s?)+|\s?…|\)|”|’|\s|\])*)$/, ', bro' + '$1');
+    .replace(/(>)\s{2,}/g, '$1')
+    .replace(/\s{2,}(<)/g, '$1')
+    .replace(/((<[^>]*>|\.|,|\!|\?|:|"|\'|\&[^;\s]*;|\s?(\.\s?)+|\s?…|\)|”|’|\s|\])*)$/, ', bro' + '$1');
 }
 
 function isValid(element) {
@@ -10,15 +10,15 @@ function isValid(element) {
 }
 
 function recurse(element) {
-    element.editedChildren = [];
+    element.editedChildren = 0;
     if (element.childNodes.length > 1) {
         for (var i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType == 1 && recurse(element.childNodes[i])) {
                 // recurse over child nodes in the process of evaluating the condition; after, if editedChildren[] holds anything, noChildrenEdited is false
-                element.editedChildren.push(element.childNodes[i]);
+                element.editedChildren++;
             }
         }
-        if (element.editedChildren.length == 0) {
+        if (element.editedChildren === 0) {
             // A node with children that aren't edited: e.g, a <p></p> with an (unedited) <em></em> inside it
             if (isValid(element)) {
                 bro(element);
