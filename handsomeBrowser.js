@@ -2,8 +2,7 @@ function bro(element) {
     element.innerHTML = element.innerHTML.trim()
         .replace(/(>)\s{2,}/g, '$1')
         .replace(/\s{2,}(<)/g, '$1')
-        .replace(/((<[^>]*>|\.|,|\!|\?|:|"|\&[^;\s]*;|\s?(\.\s?)+|\s?…|\)|”|)*)$/, ', bro' + '$1');
-    // console.log(element.innerHTML);
+        .replace(/((<[^>]*>|\.|,|\!|\?|:|"|\'|\&[^;\s]*;|\s?(\.\s?)+|\s?…|\)|”|’|\s|\])*)$/, ', bro' + '$1');
 }
 
 function isValid(element) {
@@ -19,13 +18,17 @@ function recurse(element) {
                 element.editedChildren.push(element.childNodes[i]);
             }
         }
-        if (element.editedChildren.length == 0 && isValid(element)) {
+        if (element.editedChildren.length == 0) {
             // A node with children that aren't edited: e.g, a <p></p> with an (unedited) <em></em> inside it
-            bro(element);
-            return true; // The return value for the parent recurse() 
+            if (isValid(element)) {
+                bro(element);
+                return true; // The return value for the parent recurse()
+            } else {
+                return false; // = it has no children, it's not edited itself: its parent is safe to edit
+            }
         } else {
             // If there are edited child nodes, don't edit the parent
-            return false;
+            return true; // So that knowledge of edited children "bubbles up"
         }
     } else {
         if (isValid(element)) {
@@ -38,4 +41,6 @@ function recurse(element) {
     }
 }
 
-recurse(document.documentElement); // Start recursion into the DOM
+// window.addEventListener('load', function() {
+    recurse(document.documentElement);
+// }, false);
