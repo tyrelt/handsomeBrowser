@@ -49,6 +49,5 @@ function recurse(element) {
     }
 }
 
-// window.addEventListener('load', function() {
-    recurse(document.documentElement);
-// }, false);
+// Init
+recurse(document.documentElement);
