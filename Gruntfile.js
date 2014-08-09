@@ -22,12 +22,12 @@ module.exports = function(grunt) {
             all: {
                 files: [
                     'handsomeBrowser.js',
-                    'index.html',
-                    'styles.css'
+                    'popup.html',
+                    // 'styles.css'
                 ],
                 tasks: [
-                    'jshint'
-                    // 'htmlhint',
+                    'jshint',
+                    'htmlhint',
                 ],
                 // options: {
                 //     livereload: true
@@ -50,13 +50,13 @@ module.exports = function(grunt) {
                     'head-script-disabled': true,
                     'style-disabled': true
                 },
-                src: ['index.html']
+                src: ['popup.html']
             }
         }
     });
 grunt.registerTask('default', [
     'jshint',
-    // 'htmlhint',
+    'htmlhint',
     //'express',
     //'open', 
     'watch'

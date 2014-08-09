@@ -7,9 +7,8 @@
     "devDependencies" : {
         "grunt": "*",
         "grunt-contrib-jshint": "*",
+        "grunt-htmlhint": "*",
         "grunt-contrib-watch": "*",
-        "grunt-express": "*",
-        "matchdep": "*",
-        "grunt-open": "*"
+        "matchdep": "*"
     }
 }
